@@ -80,6 +80,7 @@ private slots:
     void on_profilesButton_clicked();
     void on_profileListWidget_itemDoubleClicked(QListWidgetItem *item);
     void profileListChanged(QVector<QWebEngineProfile *> list);
+    void downloadRequested(QWebEngineDownloadItem *download);
 
 private:
     void toggleProfilesBar();

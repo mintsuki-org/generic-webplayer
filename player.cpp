@@ -179,6 +179,8 @@ Player::Player(QWebEngineProfile *profile, QUrl url, bool openBrowser, QWidget *
 
     connect(page, &PlayerPage::featurePermissionRequested, this, &Player::grantFeaturePermission);
 
+    connect(page->profile(), &QWebEngineProfile::downloadRequested, this, &Player::downloadRequested);
+
     ui->webEngineView->setPage(page);
 
     ui->openBrowserCheckbox->setCheckState(openBrowser ? Qt::Checked : Qt::Unchecked);
@@ -190,6 +192,10 @@ Player::~Player() {
     PlayerPage *page = static_cast<PlayerPage *>(ui->webEngineView->page());
     delete page;
     delete ui;
+}
+
+void Player::downloadRequested(QWebEngineDownloadItem *download) {
+    download->accept();
 }
 
 void Player::profileListChanged(QVector<QWebEngineProfile *> list) {
